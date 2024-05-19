@@ -1,5 +1,4 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
-return {}
+return {
+  { 'ruifm/gitlinker.nvim', opts = {} }, -- <leader>gy to copy link to Git web ui
+  { 'airblade/vim-rooter' }, -- Change working directory to project
+}

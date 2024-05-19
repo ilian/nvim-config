@@ -1,6 +1,43 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- TODO: fix conflict
+-- vim.keymap.set("n", "<leader>q", "<cmd>qa<cr>", { desc = "[Q]uit" })
+
+vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[ ] Switch to alternate file' })
+
+vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>', { desc = 'Select all text' })
+
+-- Use different mappings to yank to vim and OS clipboard
+vim.keymap.set({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy selection to OS clipboard' })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Copy rest of line to OS clipboard' })
+vim.keymap.set({ 'n', 'x' }, '<leader>p', '"+p', { desc = '[P]aste from OS clipboard' })
+
+-- Replace highlight with contents of default register without modifying it
+vim.keymap.set('x', '<leader>p', '"_dP')
+
+-- Do not modify default register when deleting single character
+vim.keymap.set({ 'n', 'x' }, 'x', '"_x')
+
+-- Pipe selection to specified command and replace contents with output
+vim.keymap.set('x', '|', ':!')
+
+-- Keep cursor at the same position when joining lines
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- Center cursor when searching
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- Center cursoe when scrolling
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Commands
+-- TODO: Fix conflict
+-- vim.keymap.set('n', '<leader>w', '<cmd>write<cr>')
+vim.keymap.set('n', '<leader>bq', '<cmd>bdelete<cr>')
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -36,6 +73,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+
+vim.api.nvim_create_user_command('ReloadConfig', 'source $MYVIMRC', {})
+vim.api.nvim_create_user_command('StripWhitespace', [[%s/\s\+$//e]], {})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
